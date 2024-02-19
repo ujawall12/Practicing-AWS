@@ -1,0 +1,11 @@
+version: '3.7'
+services:
+    aws:
+        image: ujawall/aws
+        ports:
+            - 8080:8080
+
+    nginx:
+        image: nginx
+        ports:
+            - 27017:27017
