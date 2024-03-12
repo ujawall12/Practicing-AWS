@@ -16,4 +16,4 @@ spring:
       max-request-size: 10MB
 
 
-#AWS Credentials below:
+#Write your AWS Credentials:
