@@ -1,6 +1,7 @@
 package com.cloud.learningaws.controller;
 
 import com.amazonaws.HttpMethod;
+import com.cloud.learningaws.util.LambdaService;
 import com.cloud.learningaws.util.S3Service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +23,7 @@ public class AwsController {
 
     private final S3Service s3Service;
 
+    private final LambdaService lambdaService;
     @GetMapping("/api")
     public String getApi() {
         return "This is running on AWS EC2 instance !!";
@@ -37,6 +39,7 @@ public class AwsController {
     public ResponseEntity<String> uploadPdf(@RequestParam("file")MultipartFile pdfFile){
         URL url = s3Service.generatePreSignedURL(pdfFile.getOriginalFilename(), HttpMethod.PUT);
         s3Service.uploadFile(pdfFile, url);
+        lambdaService.invokeLambdaFunction("S3EventTrigger", "");
         return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON).body("File uploaded successfully");
     }
 }

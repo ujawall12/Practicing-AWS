@@ -23,6 +23,8 @@ public class S3Service {
 
     private final AmazonS3 amazonS3;
 
+
+
     @Value("${aws.s3.bucketName}")
     public String bucketName;
 
